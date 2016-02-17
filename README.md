@@ -1,4 +1,4 @@
-# OpenShift-SalesPlatform
+# SalesPlatform for OpenShift PaaS
 
 
 SalesPlatform is a fork of VtigerCRM adapted for Russian Federation. Version 6.4.0
