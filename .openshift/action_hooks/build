@@ -1,0 +1,23 @@
+#!/bin/bash
+# в ~/app-root/data подкаталог current
+#
+current_version_dir=${OPENSHIFT_DATA_DIR}current
+# Если существует, выходим.
+[ -d "${current_version_dir}" ] && exit 0
+# Версия для установки
+install_version='6.4.0-201512'
+# Создаем рабочие каталоги.
+install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${install_version}
+mkdir -p $install_dir
+# Сохраним директорию
+pushd ${install_dir} >/dev/null
+# Выкачиваем установочный комплект (замените на свой).
+curl -Ls downloads.sourceforge.net/project/salesplatform/salesplatform-vtigercrm-${install_version}.tar.gz > salesplatform-vtigercrm-${install_version}.tar.gz
+# Разворачиваем архив
+tar --strip-components=1 -xzf salesplatform-vtigercrm-${install_version}.tar.gz
+# Удаляем архив, он уже не нужен.
+rm -rf salesplatform-vtigercrm-${install_version}.tar.gz
+# Для информативности
+echo $install_version > ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version
+# Возвращаемся в сохраненный каталог.
+popd >/dev/null

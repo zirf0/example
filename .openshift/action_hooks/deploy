@@ -1,0 +1,25 @@
+#!/bin/bash
+# This deploy hook gets executed after dependencies are resolved and the
+# build hook has been run but before the application has been started back
+# up again. This script gets executed directly, so it could be python, php,
+# ruby, etc.
+dest_dir=${OPENSHIFT_DATA_DIR}current
+current_version=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version)
+install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${current_version}
+if [ ! -d "${dest_dir}" ]; then
+mkdir -p $dest_dir
+cp -rf ${install_dir}/* ${dest_dir}/
+fi
+# Родной ~/app-root/repo/php удаляем (это ссылка на приложение php) и заменяем своей.
+if [ -d ${OPENSHIFT_REPO_DIR}php ]; then
+rm -rf ${OPENSHIFT_REPO_DIR}php
+fi
+ln -sf ${dest_dir} ${OPENSHIFT_REPO_DIR}php
+# Вставляем правильный .htaccess из .openshift/config
+if [ -f ${OPENSHIFT_REPO_DIR}.openshift/config/.htaccess ]; then
+cp -f ${OPENSHIFT_REPO_DIR}.openshift/config/.htaccess ${dest_dir}/.htaccess
+fi
+set -e
+# Патчи. Чтобы не возится .openshint/config/patches
+patch ${dest_dir}/modules/Install/views/Index.php ${OPENSHIFT_REPO_DIR}.openshift/config/patches/db_conf.patch
+patch ${dest_dir}/layouts/vlayout/modules/Install/Step4.tpl ${OPENSHIFT_REPO_DIR}.openshift/config/patches/install_step4_tpl.patch

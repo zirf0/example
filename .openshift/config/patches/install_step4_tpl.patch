@@ -1,0 +1,32 @@
+--- /home/andrey/src/vtigercrm/layouts/vlayout/modules/Install/Step4.tpl	2015-12-23 15:53:15.000000000 +0300
++++ /home/andrey/sp/layouts/vlayout/modules/Install/Step4.tpl	2016-01-24 07:23:10.092541206 +0300
+@@ -54,18 +54,12 @@
+ 							<tr><td>{vtranslate('LBL_DB_NAME', 'Install')}<span class="no">*</span></td>
+ 								<td><input type="text" value="{$DB_NAME}" name="db_name"></td>
+ 							</tr>
+-							<tr><td colspan="2"><input type="checkbox" name="create_db"/><div class="chkbox"></div><label for="checkbox-1">{vtranslate('LBL_CREATE_NEW_DB','Install')}</label></td>
+-							</tr>
+-							<tr class="hide" id="root_user"><td>{vtranslate('LBL_ROOT_USERNAME', 'Install')}<span class="no">*</span></td>
+-								<td><input type="text" value="" name="db_root_username"></td>
+-							</tr>
+-							<tr class="hide" id="root_password"><td>{vtranslate('LBL_ROOT_PASSWORD', 'Install')}</td>
+-								<td><input type="password" value="" name="db_root_password"></td>
+-							</tr>
+-							<!--tr><td colspan="2"><input type="checkbox" checked name="populate"/><div class="chkbox"></div><label for="checkbox-1"> Populate database with demo data</label></td-->
+-							</tr>
++							
+ 						</tbody>
+ 					</table>
++				
++			<a href="http://openshift.redhat.com">	<img class="leftimg" src="http://blog-zirf.rhcloud.com/wp-content/uploads/2015/12/openshift-300x112.png" alt="openshift" width="100" height="34" /></a> </i>
++				
+ 				</div>
+ 				<div class="span6">
+ 					<table class="config-table input-table">
+@@ -167,4 +161,4 @@
+ 			</div>
+ 		</div>
+ 	</div>
+-</form>
+\ В конце файла нет новой строки
++</form>
